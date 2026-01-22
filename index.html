@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Games - Play with Teammates</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Landing Screen -->
+        <div id="landing-screen" class="screen active">
+            <h1 class="title">Mini Games</h1>
+            <p class="subtitle">Play with your teammates!</p>
+
+            <div class="menu-buttons">
+                <button id="btn-create-room" class="btn btn-primary">
+                    <span class="btn-icon">🎮</span>
+                    Create Room
+                </button>
+                <button id="btn-join-room" class="btn btn-secondary">
+                    <span class="btn-icon">🔗</span>
+                    Join Room
+                </button>
+            </div>
+
+            <div id="join-form" class="join-form hidden">
+                <input type="text" id="room-code-input" placeholder="Enter Room Code" maxlength="6" autocomplete="off">
+                <button id="btn-submit-join" class="btn btn-primary">Join</button>
+            </div>
+        </div>
+
+        <!-- Lobby Screen -->
+        <div id="lobby-screen" class="screen">
+            <h2>Room: <span id="room-code-display"></span></h2>
+            <button id="btn-copy-code" class="btn btn-small">📋 Copy Code</button>
+
+            <div class="players-list">
+                <h3>Players</h3>
+                <div id="players-container">
+                    <div class="player-slot" id="player1-slot">
+                        <span class="player-icon">👤</span>
+                        <span class="player-name">Waiting...</span>
+                    </div>
+                    <div class="player-slot" id="player2-slot">
+                        <span class="player-icon">👤</span>
+                        <span class="player-name">Waiting...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-select">
+                <h3>Select Game</h3>
+                <div class="game-options">
+                    <button class="game-card selected" data-game="rps">
+                        <span class="game-emoji">✊✋✌️</span>
+                        <span class="game-name">Rock Paper Scissors</span>
+                    </button>
+                    <!-- More games can be added here -->
+                </div>
+            </div>
+
+            <div class="game-settings">
+                <label>Best of:
+                    <select id="rounds-select">
+                        <option value="1">1 round</option>
+                        <option value="3" selected>3 rounds</option>
+                        <option value="5">5 rounds</option>
+                        <option value="7">7 rounds</option>
+                    </select>
+                </label>
+            </div>
+
+            <button id="btn-start-game" class="btn btn-primary btn-large" disabled>
+                Start Game
+            </button>
+
+            <button id="btn-leave-room" class="btn btn-text">Leave Room</button>
+        </div>
+
+        <!-- Game Screen (Rock Paper Scissors) -->
+        <div id="game-screen" class="screen">
+            <div class="game-header">
+                <h2>Rock Paper Scissors</h2>
+                <div class="score-display">
+                    <div class="score-player">
+                        <span id="score-p1-name">You</span>
+                        <span id="score-p1" class="score">0</span>
+                    </div>
+                    <div class="score-separator">-</div>
+                    <div class="score-player">
+                        <span id="score-p2-name">Opponent</span>
+                        <span id="score-p2" class="score">0</span>
+                    </div>
+                </div>
+                <div class="round-info">
+                    Round <span id="current-round">1</span> of <span id="total-rounds">3</span>
+                </div>
+            </div>
+
+            <div class="game-arena">
+                <div class="player-area player-area-left">
+                    <div class="player-choice" id="p1-choice">
+                        <span class="choice-emoji">❓</span>
+                    </div>
+                    <span class="player-label" id="p1-label">You</span>
+                    <span class="choice-status" id="p1-status"></span>
+                </div>
+
+                <div class="vs-divider">VS</div>
+
+                <div class="player-area player-area-right">
+                    <div class="player-choice" id="p2-choice">
+                        <span class="choice-emoji">❓</span>
+                    </div>
+                    <span class="player-label" id="p2-label">Opponent</span>
+                    <span class="choice-status" id="p2-status"></span>
+                </div>
+            </div>
+
+            <div class="result-display hidden" id="result-display">
+                <span id="result-text"></span>
+            </div>
+
+            <div class="choice-buttons" id="choice-buttons">
+                <button class="choice-btn" data-choice="rock">
+                    <span class="choice-emoji">✊</span>
+                    <span class="choice-label">Rock</span>
+                </button>
+                <button class="choice-btn" data-choice="paper">
+                    <span class="choice-emoji">✋</span>
+                    <span class="choice-label">Paper</span>
+                </button>
+                <button class="choice-btn" data-choice="scissors">
+                    <span class="choice-emoji">✌️</span>
+                    <span class="choice-label">Scissors</span>
+                </button>
+            </div>
+
+            <div class="game-actions hidden" id="game-actions">
+                <button id="btn-next-round" class="btn btn-primary">Next Round</button>
+            </div>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="gameover-screen" class="screen">
+            <div class="gameover-content">
+                <h2 id="gameover-title">Game Over!</h2>
+                <div class="final-score">
+                    <span id="final-p1-name">You</span>
+                    <span id="final-score">0 - 0</span>
+                    <span id="final-p2-name">Opponent</span>
+                </div>
+                <div class="winner-announcement" id="winner-announcement"></div>
+
+                <div class="game-history">
+                    <h3>Match History</h3>
+                    <div id="history-list"></div>
+                </div>
+
+                <div class="gameover-actions">
+                    <button id="btn-play-again" class="btn btn-primary">Play Again</button>
+                    <button id="btn-back-lobby" class="btn btn-secondary">Back to Lobby</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Connection Status -->
+        <div id="connection-status" class="connection-status">
+            <span class="status-dot"></span>
+            <span class="status-text">Connecting...</span>
+        </div>
+
+        <!-- Toast Notifications -->
+        <div id="toast-container"></div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+    <!-- Game Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/firebase-service.js"></script>
+    <script src="js/game-rps.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
