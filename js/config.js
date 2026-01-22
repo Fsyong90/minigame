@@ -6,13 +6,14 @@
 // 4. Copy the firebaseConfig values here
 
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyAjI0lmgXJCLfDhajzPny1ywLzCTD0BD6s",
+    authDomain: "minigame-rps.firebaseapp.com",
+    databaseURL: "https://minigame-rps-default-rtdb.firebaseio.com",
+    projectId: "minigame-rps",
+    storageBucket: "minigame-rps.firebasestorage.app",
+    messagingSenderId: "490572283160",
+    appId: "1:490572283160:web:23200637bb3dfb07ceb26d",
+    measurementId: "G-GDC3F5E2L8"
 };
 
 // Game Configuration
